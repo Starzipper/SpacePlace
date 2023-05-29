@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "1YkZCQWP/s5gx7CzzFmMBjmaCRQLoMfxAeJNs8hDQl8=",
+  "Source": "SpacePlace",
+  "BasePath": "_content/SpacePlace",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "SpacePlace\\wwwroot",
+      "Source": "SpacePlace",
+      "ContentRoot": "C:\\Users\\Starzipper\\repos\\SpacePlace\\wwwroot\\",
+      "BasePath": "_content/SpacePlace",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

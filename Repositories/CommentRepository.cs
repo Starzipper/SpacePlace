@@ -4,7 +4,66 @@ namespace SpacePlace.Repositories
 {
     public class CommentRepository : ICommentRepository
     {
-        public List<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; } = new List<Comment>()
+        {
+            new Comment()
+            {
+                Poster = "supermastergameplayer23",
+                Content = "Just played Tears of the Kingdom today! 100% worth the wait! It's so good!",
+                Likes = 21,
+                Dislikes = -1,
+                Replies = new List<Comment>()
+                {
+                    new Comment()
+                    {
+                        Poster = "imAgoofyGooberYEAH",
+                        Content = "game of the year 2023 honestly",
+                        Likes = 4,
+                        Dislikes = 0
+                    },
+                    new Comment()
+                    {
+                        Poster = "Sleve McDichael",
+                        Content = "oml that game is overrated af. it really isn't that great kid. get better taste",
+                        Likes = 1,
+                        Dislikes = 8,
+                        Replies = new List<Comment>()
+                        {
+                            new Comment()
+                            {
+                                Poster = "imAgoofyGooberYEAH",
+                                Content = "bad take detected",
+                                Likes = 4,
+                                Dislikes = 0
+                            },
+                            new Comment()
+                            {
+                                Poster = "Beffica Winklesnoot",
+                                Content = "L + didn't ask + ratio",
+                                Likes = 3,
+                                Dislikes = 0
+                            },
+                            new Comment()
+                            {
+                                Poster = "supermastergameplayer23",
+                                Content = "Well, I think it's great, so I made a post about it. Why are you getting so heated about someone else's opinion?" +
+                                "Also, making assumptions about someone's age is literally the most childish thing you can do. If you want to have a genuine discussion about " +
+                                "the merits of TOTK, I'd be completely open to that, but please leave the ad hominem out of it :)",
+                                Likes = 8,
+                                Dislikes = 0
+                            },
+                            new Comment()
+                            {
+                                Poster = "needsspeed",
+                                Content = "go to bed little Timmy LMFAO",
+                                Likes = 1,
+                                Dislikes = 0
+                            }
+                        }
+                    }
+                }
+            }
+        };
         public CommentResponse GetComments(CommentRequest request)
         {
             try
@@ -36,6 +95,7 @@ namespace SpacePlace.Repositories
                     Content = comment.Content,
                     Likes = comment.Likes,
                     Dislikes = comment.Dislikes,
+                    Replies = comment.Replies,
                     Success = true
                 };
             }
@@ -49,7 +109,7 @@ namespace SpacePlace.Repositories
                 };
             }
         }
-        public CommentResponse PostComment(CommentRequest request)
+        public CommentResponse PostComment(CommentRequest request) // TODO: I need to add a way to discern whether this is a reply or not; needs to be added to replies list if so.
         {
             try
             {
@@ -67,6 +127,7 @@ namespace SpacePlace.Repositories
                     Content = request.Content,
                     Likes = comment.Likes,
                     Dislikes = comment.Dislikes,
+                    Replies = comment.Replies,
                     Success = true
                 };
             }
@@ -102,6 +163,7 @@ namespace SpacePlace.Repositories
                     Content = request.Content,
                     Likes = request.Likes,
                     Dislikes = request.Dislikes,
+                    Replies = request.Replies,
                     Success = true
                 };
             }

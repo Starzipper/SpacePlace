@@ -7,7 +7,8 @@
         public string Content { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
-        public IEnumerable<Comment> Comments { get; set; }
+        public List<Comment> Replies { get; set; }
+        public List<Comment> Comments { get; set; }
         public string ErrorMessage { get; set; }
         public bool Success { get; set; }
     }

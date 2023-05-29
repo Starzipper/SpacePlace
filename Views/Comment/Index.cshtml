@@ -1,0 +1,47 @@
+﻿@model CommentResponse
+@{
+    ViewData["Title"] = "SpacePlace";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <h1>SpacePlace</h1>
+
+    <!--TODO: Find a better way to display reply chains. This is awful.-->
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="comment">
+            <p>Poster: @comment.Poster</p>
+            <p>@comment.Content</p>
+            <p>Likes: @comment.Likes</p>
+            <p>Dislikes: @comment.Dislikes</p>
+            @if (comment.Replies.Count != 0)
+            {
+                <p>Replies:</p>
+                @foreach (var reply in comment.Replies)
+                {
+                    <p>Poster: @reply.Poster</p>
+                    <p>@reply.Content</p>
+                    <p>Likes: @reply.Likes</p>
+                    <p>Dislikes: @reply.Dislikes</p>
+                    @if (reply.Replies.Count != 0)
+                    {
+                        <p>Replies:</p>
+                        @foreach (var secondReply in reply.Replies)
+                        {
+                            <p>Poster: @secondReply.Poster</p>
+                            <p>@secondReply.Content</p>
+                            <p>Likes: @secondReply.Likes</p>
+                            <p>Dislikes: @secondReply.Dislikes</p>
+                            <br/>
+                        }
+                    }
+                    <br/>
+                }
+            }
+        </div>
+    }
+
+</body>
+</html>
