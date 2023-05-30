@@ -11,5 +11,23 @@
         public List<Comment> Comments { get; set; }
         public string ErrorMessage { get; set; }
         public bool Success { get; set; }
+        public string DisplayReplies(Comment comment)
+        {
+            var html = "";
+            if (comment.Replies.Count != 0)
+            {
+                html += "<p>Replies: </p>";
+                foreach (var reply in comment.Replies)
+                {
+                    html += "<p>Poster: " + reply.Poster + "</p>";
+                    html += "<p>" + reply.Content + "</p>";
+                    html += "<p>Likes: " + reply.Likes + "</p>";
+                    html += "<p>Dislikes: " + reply.Dislikes + "</p>";
+                    html += DisplayReplies(reply);
+                    html += "<br/>";
+                }
+            }
+            return html;
+        }
     }
 }

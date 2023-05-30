@@ -2,13 +2,12 @@
 @{
     ViewData["Title"] = "SpacePlace";
 }
-
+<!--Graphic Design is my passion /s -->
 <!DOCTYPE html>
 <html lang="en">
 <body>
     <h1>SpacePlace</h1>
 
-    <!--TODO: Find a better way to display reply chains. This is awful.-->
     @foreach (var comment in Model.Comments)
     {
         <div class="comment">
@@ -16,30 +15,14 @@
             <p>@comment.Content</p>
             <p>Likes: @comment.Likes</p>
             <p>Dislikes: @comment.Dislikes</p>
-            @if (comment.Replies.Count != 0)
-            {
-                <p>Replies:</p>
-                @foreach (var reply in comment.Replies)
-                {
-                    <p>Poster: @reply.Poster</p>
-                    <p>@reply.Content</p>
-                    <p>Likes: @reply.Likes</p>
-                    <p>Dislikes: @reply.Dislikes</p>
-                    @if (reply.Replies.Count != 0)
-                    {
-                        <p>Replies:</p>
-                        @foreach (var secondReply in reply.Replies)
-                        {
-                            <p>Poster: @secondReply.Poster</p>
-                            <p>@secondReply.Content</p>
-                            <p>Likes: @secondReply.Likes</p>
-                            <p>Dislikes: @secondReply.Dislikes</p>
-                            <br/>
-                        }
-                    }
-                    <br/>
-                }
-            }
+            <button onclick="replyComment()" class="btn">Reply</button>
+            <br/>
+            <!--<form method="post" asp-action="ReplyComment" id="reply" style="display:none">
+                <div class="form-group">
+                    
+                </div>
+            </form> TODO: Try to remember how forms work. :((-->
+            @Html.Raw(Model.DisplayReplies(comment))
         </div>
     }
 
