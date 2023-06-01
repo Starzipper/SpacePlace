@@ -146,6 +146,7 @@ namespace SpacePlace.Repositories
                 return new CommentResponse()
                 {
                     ID = comment.ID,
+                    ParentID = comment.ParentID,
                     Poster = request.Poster,
                     Content = request.Content,
                     Likes = comment.Likes,

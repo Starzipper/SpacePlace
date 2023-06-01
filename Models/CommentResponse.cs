@@ -25,7 +25,7 @@
                     html += "<p>Likes: " + reply.Likes + "</p>";
                     html += "<p>Dislikes: " + reply.Dislikes + "</p>";
                     html += "<button onclick=\"replyComment('" + reply.ID +"')\" class=\"btn\">Reply</button><br/>" +
-                            "<form method=\"post\" asp-action=\"PostComment\" id=\"reply-"+ reply.ID +"\" style=\"display:none\">\r\n" +
+                            "<form method=\"post\" action=\"/Comment/PostComment\" id=\"reply-"+ reply.ID +"\" style=\"display:none\">\r\n" +
                                 "<div class=\"form-group\">\r\n" +
                                     "<label for=\"Content\">Content:</label>\r\n" +
                                     "<input type=\"hidden\" name=\"id\" value=\""+ reply.ID +"\" />\r\n" +
