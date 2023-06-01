@@ -45,10 +45,11 @@ namespace SpacePlace.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostComment([FromForm] string poster, [FromForm] string content)
+        public IActionResult PostComment(Guid parentID, string poster, [FromForm] string content)
         {
             var request = new CommentRequest()
             {
+                ParentID = parentID,
                 Poster = poster,
                 Content = content
             };
@@ -58,7 +59,7 @@ namespace SpacePlace.Controllers
             {
                 return RedirectToPage("Error");
             }
-            return View(response);
+            return RedirectToAction("Index");
         }
 
         [HttpPut]

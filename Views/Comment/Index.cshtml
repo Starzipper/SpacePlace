@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "SpacePlace";
 }
-<!--Graphic Design is my passion /s -->
+
 <!DOCTYPE html>
 <html lang="en">
 <body>
@@ -15,16 +15,33 @@
             <p>@comment.Content</p>
             <p>Likes: @comment.Likes</p>
             <p>Dislikes: @comment.Dislikes</p>
-            <button onclick="replyComment()" class="btn">Reply</button>
-            <br/>
-            <!--<form method="post" asp-action="ReplyComment" id="reply" style="display:none">
+            <button onclick="replyComment('comment.ID')" class="btn">Reply</button>
+            <form method="post" asp-action="PostComment" id="reply-comment.ID" style="display:none">
                 <div class="form-group">
-                    
+                    <label for="Content">Content:</label>
+                    <input type="hidden" name="id" value="comment.ID" />
+                    <input type="text" class="form-control" id="Content" name="Content" asp-for="Content" required />
                 </div>
-            </form> TODO: Try to remember how forms work. :((-->
+                <button type="submit" class="btn">Submit</button>
+                <button onclick="cancelReply('comment.ID')" class="btn">Cancel</button>
+            </form>
             @Html.Raw(Model.DisplayReplies(comment))
         </div>
     }
 
+    <!-- JavaScript -->
+    <script>
+        function replyComment(commentID) {
+            var replyInput = document.getElementById("reply-" + commentID);
+            replyInput.style.display = "block";
+        }
+        function cancelReply(commentID) {
+            var cancelInput = document.getElementById("reply-" + commentID);
+            cancelInput.style.display = "none";
+        }
+    </script>
+
+    <!--Here just in case I need it
+ -->
 </body>
 </html>

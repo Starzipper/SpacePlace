@@ -62,6 +62,11 @@ namespace SpacePlace.Repositories
                         }
                     }
                 }
+            },
+            new Comment()
+            {
+                Poster = "needsspeed",
+                Content = "yeet"
             }
         };
         public CommentResponse GetComments(CommentRequest request)
@@ -109,16 +114,34 @@ namespace SpacePlace.Repositories
                 };
             }
         }
-        public CommentResponse PostComment(CommentRequest request) // TODO: I need to add a way to discern whether this is a reply or not; needs to be added to replies list if so.
+        public CommentResponse PostComment(CommentRequest request)
         {
             try
             {
                 var comment = new Comment()
                 {
+                    ParentID = request.ParentID,
                     Poster = request.Poster,
                     Content = request.Content
                 };
-                Comments.Add(comment);
+
+                if (request.ParentID == Guid.Empty)
+                {
+                    Comments.Add(comment);
+                }
+                else
+                {
+                    var parentComment = Comments.Where(com => com.ID == request.ParentID).FirstOrDefault();
+                    if (parentComment == null)
+                    {
+                        return new CommentResponse()
+                        {
+                            ErrorMessage = "Parent comment not found.",
+                            Success = false
+                        };
+                    }
+                    parentComment.Replies.Add(comment);
+                }
 
                 return new CommentResponse()
                 {
