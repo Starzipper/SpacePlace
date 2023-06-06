@@ -28,7 +28,7 @@
                             "<form method=\"post\" action=\"/Comment/PostComment\" id=\"reply-"+ reply.ID +"\" style=\"display:none\">\r\n" +
                                 "<div class=\"form-group\">\r\n" +
                                     "<label for=\"Content\">Content:</label>\r\n" +
-                                    "<input type=\"hidden\" name=\"id\" value=\""+ reply.ID +"\" />\r\n" +
+                                    "<input type=\"hidden\" name=\"parentID\" value=\""+ reply.ID +"\" />\r\n" +
                                     "<input type=\"text\" class=\"form-control\" id=\"Content\" name=\"Content\" asp-for=\"Content\" required />\r\n" +
                                 "</div>\r\n" +
                                 "<button type=\"submit\" class=\"btn\">Submit</button>\r\n" +

@@ -131,7 +131,7 @@ namespace SpacePlace.Repositories
                 }
                 else
                 {
-                    var parentComment = Comments.Where(com => com.ID == request.ParentID).FirstOrDefault();
+                    var parentComment = FindParent(request.ParentID, Comments);
                     if (parentComment == null)
                     {
                         return new CommentResponse()
@@ -231,6 +231,38 @@ namespace SpacePlace.Repositories
                     ErrorMessage = exception.Message,
                     Success = false
                 };
+            }
+        }
+        public Comment? FindParent(Guid id, List<Comment> comments)
+        {
+            try
+            {
+                if (id == Guid.Empty)
+                {
+                    return null;
+                }
+                Comment? parentComment = null;
+                foreach (Comment comment in comments)
+                {
+                    if (comment.ID == id)
+                    {
+                        return comment;
+                    }
+
+                    if (comment.Replies.Count > 0)
+                    {
+                        parentComment = FindParent(id, comment.Replies);
+                        if (parentComment != null)
+                        {
+                            return parentComment;
+                        }
+                    }
+                }
+                return parentComment;
+            }
+            catch
+            {
+                return null;
             }
         }
     }

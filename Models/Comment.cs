@@ -1,4 +1,6 @@
-﻿namespace SpacePlace.Models
+﻿using System.Xml.Linq;
+
+namespace SpacePlace.Models
 {
     public class Comment
     {
