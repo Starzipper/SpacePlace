@@ -9,6 +9,7 @@
         public int Likes { get; set; }
         public int Dislikes { get; set; }
         public List<Comment> Replies { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public List<Comment> Comments { get; set; }
         public string ErrorMessage { get; set; }
         public bool Success { get; set; }
@@ -21,7 +22,14 @@
                 foreach (var reply in comment.Replies)
                 {
                     html += "<p>Poster: " + reply.Poster + "</p>";
-                    html += "<p>" + reply.Content + "</p>";
+                    if (reply.IsDeleted)
+                    {
+                        html += "<p><i>" + reply.Content + "</i></p>";
+                    }
+                    else
+                    {
+                        html += "<p>" + reply.Content + "</p>";
+                    }
                     html += "<button onclick=\"editComment('" + reply.ID + "')\" class=\"btn\">Edit</button>\r\n" +
                             "<form method=\"post\" action=\"/Comment/EditComment\" id=\"edit-" + reply.ID + "\" style=\"display:none\">\r\n" +
                                 "<div class=\"form-group\">\r\n" +
@@ -32,6 +40,12 @@
                                 "<button type=\"submit\" class=\"btn\">Submit</button>\r\n" +
                             "</form>" +
                             "<button onclick=\"cancelEdit('" + reply.ID + "')\" class=\"btn\" id=\"editbtn-" + reply.ID + "\" style=\"display:none\">Cancel</button>";
+                    html += "<form method=\"post\" action=\"/Comment/DeleteComment\">\r\n" +
+                                "<div class=\"form-group\">\r\n" +
+                                    "<input type=\"hidden\" name=\"id\" value=\"" + reply.ID + "\" />\r\n" +
+                                "</div>\r\n" +
+                                "<button type=\"submit\" class=\"btn\">Delete</button>\r\n" +
+                            "</form>";
                     html += "<p>Likes: " + reply.Likes + "</p>";
                     html += "<p>Dislikes: " + reply.Dislikes + "</p>";
                     html += "<button onclick=\"replyComment('" + reply.ID +"')\" class=\"btn\">Reply</button><br/>" +

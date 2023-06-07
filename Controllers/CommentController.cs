@@ -79,7 +79,7 @@ namespace SpacePlace.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public IActionResult DeleteComment(Guid id)
         {
             var request = new CommentRequest()
@@ -92,7 +92,7 @@ namespace SpacePlace.Controllers
             {
                 return RedirectToPage("Error");
             }
-            return View(response);
+            return RedirectToAction("Index");
         }
     }
 }

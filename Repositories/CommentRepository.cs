@@ -205,7 +205,7 @@ namespace SpacePlace.Repositories
         {
             try
             {
-                var comment = Comments.Where(com => com.ID == request.ID).FirstOrDefault();
+                var comment = FindComment(request.ID, Comments);
                 if (comment == null)
                 {
                     return new CommentResponse()
@@ -215,12 +215,14 @@ namespace SpacePlace.Repositories
                         Success = false
                     };
                 }
-                Comments.Remove(comment);
+                comment.Content = "This comment has been deleted.";
+                comment.IsDeleted = true;
 
                 return new CommentResponse()
                 {
                     ID = request.ID,
-                    Success = true
+                    Success = true,
+                    IsDeleted = true
                 };
             }
             catch (Exception exception)

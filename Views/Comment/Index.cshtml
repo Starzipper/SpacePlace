@@ -21,7 +21,14 @@
         {
             <div class="comment">
                 <p>Poster: @comment.Poster</p>
-                <p>@comment.Content</p>
+                @if (comment.IsDeleted)
+                {
+                    <p><i>@comment.Content</i></p>
+                }
+                else
+                {
+                    <p>@comment.Content</p>
+                }
                 <button onclick="editComment('@comment.ID')" class="btn">Edit</button>
                 <form method="post" asp-action="EditComment" id="edit-@comment.ID" style="display:none">
                     <div class="form-group">
@@ -32,6 +39,12 @@
                     <button type="submit" class="btn">Submit</button>
                 </form>
                 <button onclick="cancelEdit('@comment.ID')" class="btn" id="editbtn-@comment.ID" style="display:none">Cancel</button>
+                <form method="post" asp-action="DeleteComment">
+                    <div class="form-group">
+                        <input type="hidden" name="id" value="@comment.ID" />
+                    </div>
+                    <button type="submit" class="btn">Delete</button>
+                </form>
                 <p>Likes: @comment.Likes</p>
                 <p>Dislikes: @comment.Dislikes</p>
                 <button onclick="replyComment('@comment.ID')" class="btn">Reply</button>

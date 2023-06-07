@@ -11,5 +11,6 @@ namespace SpacePlace.Models
         public int Likes { get; set; } = 0;
         public int Dislikes { get; set; } = 0;
         public List<Comment> Replies { get; set; } = new List<Comment>();
+        public bool IsDeleted { get; set; } = false;
     }
 }
