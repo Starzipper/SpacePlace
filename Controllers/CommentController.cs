@@ -62,7 +62,7 @@ namespace SpacePlace.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult EditComment(Guid id, [FromForm] string content)
         {
             var request = new CommentRequest()
@@ -76,7 +76,7 @@ namespace SpacePlace.Controllers
             {
                 return RedirectToPage("Error");
             }
-            return View(response);
+            return RedirectToAction("Index");
         }
 
         [HttpDelete]

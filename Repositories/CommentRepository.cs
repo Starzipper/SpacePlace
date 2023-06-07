@@ -131,7 +131,7 @@ namespace SpacePlace.Repositories
                 }
                 else
                 {
-                    var parentComment = FindParent(request.ParentID, Comments);
+                    var parentComment = FindComment(request.ParentID, Comments);
                     if (parentComment == null)
                     {
                         return new CommentResponse()
@@ -168,8 +168,8 @@ namespace SpacePlace.Repositories
         {
             try
             {
-                var index = Comments.FindIndex(com => com.ID == request.ID);
-                if (index == -1)
+                var comment = FindComment(request.ID, Comments);
+                if (comment == null)
                 {
                     return new CommentResponse()
                     {
@@ -178,7 +178,7 @@ namespace SpacePlace.Repositories
                         Success = false
                     };
                 }
-                Comments[index].Content = request.Content;
+                comment.Content = request.Content;
 
                 return new CommentResponse()
                 {
@@ -233,7 +233,7 @@ namespace SpacePlace.Repositories
                 };
             }
         }
-        public Comment? FindParent(Guid id, List<Comment> comments)
+        public Comment? FindComment(Guid id, List<Comment> comments)
         {
             try
             {
@@ -241,7 +241,7 @@ namespace SpacePlace.Repositories
                 {
                     return null;
                 }
-                Comment? parentComment = null;
+                Comment? nestedComment = null;
                 foreach (Comment comment in comments)
                 {
                     if (comment.ID == id)
@@ -251,14 +251,14 @@ namespace SpacePlace.Repositories
 
                     if (comment.Replies.Count > 0)
                     {
-                        parentComment = FindParent(id, comment.Replies);
-                        if (parentComment != null)
+                        nestedComment = FindComment(id, comment.Replies);
+                        if (nestedComment != null)
                         {
-                            return parentComment;
+                            return nestedComment;
                         }
                     }
                 }
-                return parentComment;
+                return nestedComment;
             }
             catch
             {

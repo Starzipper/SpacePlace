@@ -22,18 +22,28 @@
                 {
                     html += "<p>Poster: " + reply.Poster + "</p>";
                     html += "<p>" + reply.Content + "</p>";
+                    html += "<button onclick=\"editComment('" + reply.ID + "')\" class=\"btn\">Edit</button>\r\n" +
+                            "<form method=\"post\" action=\"/Comment/EditComment\" id=\"edit-" + reply.ID + "\" style=\"display:none\">\r\n" +
+                                "<div class=\"form-group\">\r\n" +
+                                    "<label for=\"Content\">Content:</label>\r\n" +
+                                    "<input type=\"hidden\" name=\"id\" value=\"" + reply.ID + "\" />\r\n" +
+                                    "<input type=\"text\" class=\"form-control\" id=\"Content\" name=\"Content\" asp-for=\"Content\" value=\"" + reply.Content + "\" required />\r\n" +
+                                "</div>\r\n" +
+                                "<button type=\"submit\" class=\"btn\">Submit</button>\r\n" +
+                            "</form>" +
+                            "<button onclick=\"cancelEdit('" + reply.ID + "')\" class=\"btn\" id=\"editbtn-" + reply.ID + "\" style=\"display:none\">Cancel</button>";
                     html += "<p>Likes: " + reply.Likes + "</p>";
                     html += "<p>Dislikes: " + reply.Dislikes + "</p>";
                     html += "<button onclick=\"replyComment('" + reply.ID +"')\" class=\"btn\">Reply</button><br/>" +
-                            "<form method=\"post\" action=\"/Comment/PostComment\" id=\"reply-"+ reply.ID +"\" style=\"display:none\">\r\n" +
+                            "<form method=\"post\" action=\"/Comment/PostComment\" id=\"reply-" + reply.ID + "\" style=\"display:none\">\r\n" +
                                 "<div class=\"form-group\">\r\n" +
                                     "<label for=\"Content\">Content:</label>\r\n" +
-                                    "<input type=\"hidden\" name=\"parentID\" value=\""+ reply.ID +"\" />\r\n" +
+                                    "<input type=\"hidden\" name=\"parentID\" value=\"" + reply.ID + "\" />\r\n" +
                                     "<input type=\"text\" class=\"form-control\" id=\"Content\" name=\"Content\" asp-for=\"Content\" required />\r\n" +
                                 "</div>\r\n" +
                                 "<button type=\"submit\" class=\"btn\">Submit</button>\r\n" +
-                                "<button onclick=\"cancelReply('" + reply.ID +"')\" class=\"btn\">Cancel</button>\r\n" +
-                            "</form>";
+                            "</form>" +
+                            "<button onclick=\"cancelReply('" + reply.ID + "')\" class=\"btn\" id=\"replybtn-" + reply.ID + "\" style=\"display:none\">Cancel</button>";
                     html += DisplayReplies(reply);
                     html += "<br/>";
                 }

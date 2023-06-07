@@ -22,6 +22,16 @@
             <div class="comment">
                 <p>Poster: @comment.Poster</p>
                 <p>@comment.Content</p>
+                <button onclick="editComment('@comment.ID')" class="btn">Edit</button>
+                <form method="post" asp-action="EditComment" id="edit-@comment.ID" style="display:none">
+                    <div class="form-group">
+                        <label for="Content">Content:</label>
+                        <input type="hidden" name="id" value="@comment.ID" />
+                        <input type="text" class="form-control" id="Content" name="Content" asp-for="Content" value="@comment.Content" required />
+                    </div>
+                    <button type="submit" class="btn">Submit</button>
+                </form>
+                <button onclick="cancelEdit('@comment.ID')" class="btn" id="editbtn-@comment.ID" style="display:none">Cancel</button>
                 <p>Likes: @comment.Likes</p>
                 <p>Dislikes: @comment.Dislikes</p>
                 <button onclick="replyComment('@comment.ID')" class="btn">Reply</button>
@@ -32,8 +42,8 @@
                         <input type="text" class="form-control" id="Content" name="Content" asp-for="Content" required />
                     </div>
                     <button type="submit" class="btn">Submit</button>
-                    <button onclick="cancelReply('@comment.ID')" class="btn">Cancel</button>
                 </form>
+                <button onclick="cancelReply('@comment.ID')" class="btn" id="replybtn-@comment.ID" style="display:none">Cancel</button>
                 @Html.Raw(Model.DisplayReplies(comment))
             </div>
         }
@@ -41,13 +51,29 @@
 
     <!-- JavaScript -->
     <script>
+        function editComment(commentID) {
+            var editInput = document.getElementById("edit-" + commentID);
+            var editButton = document.getElementById("editbtn-" + commentID);
+            editInput.style.display = "block";
+            editButton.style.display = "block";
+        }
+        function cancelEdit(commentID) {
+            var cancelInput = document.getElementById("edit-" + commentID);
+            var cancelButton = document.getElementById("editbtn-" + commentID);
+            cancelInput.style.display = "none";
+            cancelButton.style.display = "none";
+        }
         function replyComment(commentID) {
             var replyInput = document.getElementById("reply-" + commentID);
+            var replyButton = document.getElementById("replybtn-" + commentID);
             replyInput.style.display = "block";
+            replyButton.style.display = "block";
         }
         function cancelReply(commentID) {
             var cancelInput = document.getElementById("reply-" + commentID);
+            var cancelButton = document.getElementById("replybtn-" + commentID);
             cancelInput.style.display = "none";
+            cancelButton.style.display = "none";
         }
     </script>
 
