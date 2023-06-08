@@ -26,7 +26,7 @@ namespace SpacePlace.Repositories
                         Poster = "Sleve McDichael",
                         Content = "oml that game is overrated af. it really isn't that great kid. get better taste",
                         Likes = 1,
-                        Dislikes = 8,
+                        Dislikes = -8,
                         Replies = new List<Comment>()
                         {
                             new Comment()
@@ -265,6 +265,70 @@ namespace SpacePlace.Repositories
             catch
             {
                 return null;
+            }
+        }
+        public CommentResponse LikeComment(CommentRequest request)
+        {
+            try
+            {
+                var comment = FindComment(request.ID, Comments);
+                if (comment == null)
+                {
+                    return new CommentResponse()
+                    {
+                        ID = request.ID,
+                        ErrorMessage = "Comment not found.",
+                        Success = false
+                    };
+                }
+                comment.Likes++;
+                return new CommentResponse()
+                {
+                    ID = comment.ID,
+                    Likes = comment.Likes,
+                    Success = true
+                };
+            }
+            catch (Exception exception)
+            {
+                return new CommentResponse()
+                {
+                    ID = request.ID,
+                    ErrorMessage = exception.Message,
+                    Success = false
+                };
+            }
+        }
+        public CommentResponse DislikeComment(CommentRequest request)
+        {
+            try
+            {
+                var comment = FindComment(request.ID, Comments);
+                if (comment == null)
+                {
+                    return new CommentResponse()
+                    {
+                        ID = request.ID,
+                        ErrorMessage = "Comment not found.",
+                        Success = false
+                    };
+                }
+                comment.Dislikes--;
+                return new CommentResponse()
+                {
+                    ID = comment.ID,
+                    Dislikes = comment.Dislikes,
+                    Success = true
+                };
+            }
+            catch (Exception exception)
+            {
+                return new CommentResponse()
+                {
+                    ID = request.ID,
+                    ErrorMessage = exception.Message,
+                    Success = false
+                };
             }
         }
     }

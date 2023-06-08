@@ -47,7 +47,19 @@
                                 "<button type=\"submit\" class=\"btn\">Delete</button>\r\n" +
                             "</form>";
                     html += "<p>Likes: " + reply.Likes + "</p>";
+                    html += "<form method=\"post\" action=\"/Comment/LikeComment\">\r\n" +
+                                "<div class=\"form-group\">\r\n" +
+                                    "<input type=\"hidden\" name=\"id\" value=\"" + reply.ID + "\" />\r\n" +
+                                "</div>\r\n" +
+                                "<button type=\"submit\" class=\"btn\">Like</button>\r\n" +
+                            "</form>";
                     html += "<p>Dislikes: " + reply.Dislikes + "</p>";
+                    html += "<form method=\"post\" action=\"/Comment/DislikeComment\">\r\n" +
+                                "<div class=\"form-group\">\r\n" +
+                                    "<input type=\"hidden\" name=\"id\" value=\"" + reply.ID + "\" />\r\n" +
+                                "</div>\r\n" +
+                                "<button type=\"submit\" class=\"btn\">Dislike</button>\r\n" +
+                            "</form>";
                     html += "<button onclick=\"replyComment('" + reply.ID +"')\" class=\"btn\">Reply</button><br/>" +
                             "<form method=\"post\" action=\"/Comment/PostComment\" id=\"reply-" + reply.ID + "\" style=\"display:none\">\r\n" +
                                 "<div class=\"form-group\">\r\n" +

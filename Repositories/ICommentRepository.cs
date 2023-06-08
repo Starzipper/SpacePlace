@@ -9,5 +9,7 @@ namespace SpacePlace.Repositories
         public CommentResponse PostComment(CommentRequest request);
         public CommentResponse EditComment(CommentRequest request);
         public CommentResponse DeleteComment(CommentRequest request);
+        public CommentResponse LikeComment(CommentRequest request);
+        public CommentResponse DislikeComment(CommentRequest request);
     }
 }

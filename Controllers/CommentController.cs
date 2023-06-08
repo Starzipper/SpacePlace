@@ -94,5 +94,37 @@ namespace SpacePlace.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult LikeComment(Guid id)
+        {
+            var request = new CommentRequest()
+            {
+                ID = id
+            };
+            var response = _repository.LikeComment(request);
+
+            if (!response.Success)
+            {
+                return RedirectToPage("Error");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult DislikeComment(Guid id)
+        {
+            var request = new CommentRequest()
+            {
+                ID = id
+            };
+            var response = _repository.DislikeComment(request);
+
+            if (!response.Success)
+            {
+                return RedirectToPage("Error");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

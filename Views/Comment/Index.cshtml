@@ -46,7 +46,19 @@
                     <button type="submit" class="btn">Delete</button>
                 </form>
                 <p>Likes: @comment.Likes</p>
+                <form method="post" asp-action="LikeComment">
+                    <div class="form-group">
+                        <input type="hidden" name="id" value="@comment.ID" />
+                    </div>
+                    <button type="submit" class="btn">Like</button>
+                </form>
                 <p>Dislikes: @comment.Dislikes</p>
+                <form method="post" asp-action="DislikeComment">
+                    <div class="form-group">
+                        <input type="hidden" name="id" value="@comment.ID" />
+                    </div>
+                    <button type="submit" class="btn">Dislike</button>
+                </form>
                 <button onclick="replyComment('@comment.ID')" class="btn">Reply</button>
                 <form method="post" asp-action="PostComment" id="reply-@comment.ID" style="display:none">
                     <div class="form-group">
