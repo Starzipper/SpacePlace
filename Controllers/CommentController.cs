@@ -90,7 +90,7 @@ namespace SpacePlace.Controllers
 
             if (!response.Success)
             {
-                return RedirectToPage("Error");
+                return Redirect("/Comment/Error");
             }
             return RedirectToAction("Index");
         }
@@ -122,7 +122,7 @@ namespace SpacePlace.Controllers
 
             if (!response.Success)
             {
-                return RedirectToPage("Error");
+                return Redirect("/Comment/Error");
             }
             return RedirectToAction("Index");
         }
