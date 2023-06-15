@@ -81,12 +81,20 @@ namespace SpacePlace.Repositories
                         ErrorMessage = "Profile not found."
                     };
                 }
-                profile.UserName = request.UserName;
+                if (request.UserName != String.Empty)
+                {
+                    profile.UserName = request.UserName;
+                }
+                if (request.Comment != null)
+                {
+                    profile.CommentHistory.Add(request.Comment);
+                }
 
                 return new ProfileResponse()
                 {
                     ID = request.ID,
-                    UserName = request.UserName,
+                    UserName = profile.UserName,
+                    CommentHistory = profile.CommentHistory,
                     Success = true
                 };
             }

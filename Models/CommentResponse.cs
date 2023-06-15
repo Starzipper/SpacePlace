@@ -11,6 +11,7 @@
         public List<Comment> Replies { get; set; }
         public bool IsDeleted { get; set; } = false;
         public List<Comment> Comments { get; set; }
+        public ProfileRequest ProfileRequest { get; set; }
         public string ErrorMessage { get; set; }
         public bool Success { get; set; }
         public string DisplayReplies(Comment comment)

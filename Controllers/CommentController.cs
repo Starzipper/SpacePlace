@@ -7,10 +7,12 @@ namespace SpacePlace.Controllers
 {
     public class CommentController : Controller
     {
-        private readonly ICommentRepository _repository;
-        public CommentController(ICommentRepository repository)
+        private readonly ICommentRepository _comRepository;
+        private readonly IProfileRepository _profRepository;
+        public CommentController(ICommentRepository comRepository, IProfileRepository profRepository)
         {
-            _repository = repository;
+            _comRepository = comRepository;
+            _profRepository = profRepository;
         }
 
         public IActionResult Index()
@@ -19,7 +21,7 @@ namespace SpacePlace.Controllers
             {
                 ID = Guid.Empty
             };
-            var response = _repository.GetComments(request);
+            var response = _comRepository.GetComments(request);
 
             if (!response.Success)
             {
@@ -35,7 +37,7 @@ namespace SpacePlace.Controllers
             {
                 ID = id
             };
-            var response = _repository.GetComments(request);
+            var response = _comRepository.GetComments(request);
 
             if (!response.Success)
             {
@@ -45,20 +47,28 @@ namespace SpacePlace.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostComment(Guid parentID, string poster, [FromForm] string content)
+        public IActionResult PostComment(Guid parentID, Guid posterID, string poster, [FromForm] string content)
         {
             var request = new CommentRequest()
             {
                 ParentID = parentID,
+                PosterID = posterID,
                 Poster = poster,
                 Content = content
             };
-            var response = _repository.PostComment(request);
 
+            var response = _comRepository.PostComment(request);
             if (!response.Success)
             {
                 return RedirectToPage("Error");
             }
+
+            var profResponse = _profRepository.UpdateProfile(response.ProfileRequest);
+            if (!profResponse.Success)
+            {
+                return RedirectToPage("Error");
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -70,7 +80,7 @@ namespace SpacePlace.Controllers
                 ID = id,
                 Content = content
             };
-            var response = _repository.EditComment(request);
+            var response = _comRepository.EditComment(request);
 
             if (!response.Success)
             {
@@ -86,7 +96,7 @@ namespace SpacePlace.Controllers
             {
                 ID = id
             };
-            var response = _repository.DeleteComment(request);
+            var response = _comRepository.DeleteComment(request);
 
             if (!response.Success)
             {
@@ -102,7 +112,7 @@ namespace SpacePlace.Controllers
             {
                 ID = id
             };
-            var response = _repository.LikeComment(request);
+            var response = _comRepository.LikeComment(request);
 
             if (!response.Success)
             {
@@ -118,7 +128,7 @@ namespace SpacePlace.Controllers
             {
                 ID = id
             };
-            var response = _repository.DislikeComment(request);
+            var response = _comRepository.DislikeComment(request);
 
             if (!response.Success)
             {

@@ -4,6 +4,7 @@
     {
         public Guid ID { get; set; }
         public Guid ParentID { get; set; }
+        public Guid PosterID { get; set; }
         public string Poster { get; set; }
         public string Content { get; set; }
         public int Likes { get; set; }

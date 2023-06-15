@@ -5,7 +5,7 @@
  * 
  * Make the site look better.
  * 
- * Make a profile class and repository.
+ * I need to take away the option to post if you're not logged in + I need to figure out how logging in is going to work.
  * Additionally, make it so that only the poster of a comment is allowed to edit or delete it.
  * 
  * Fix the error page. Right now, whenever an error occurs, the program cannot accurately redirect the user to the error page.

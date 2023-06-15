@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ICommentRepository, CommentRepository>();
+builder.Services.AddSingleton<IProfileRepository, ProfileRepository>();
 
 var app = builder.Build();
 

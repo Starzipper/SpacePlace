@@ -121,6 +121,7 @@ namespace SpacePlace.Repositories
                 var comment = new Comment()
                 {
                     ParentID = request.ParentID,
+                    PosterID = request.PosterID,
                     Poster = request.Poster,
                     Content = request.Content
                 };
@@ -142,6 +143,11 @@ namespace SpacePlace.Repositories
                     }
                     parentComment.Replies.Add(comment);
                 }
+                var profileRequest = new ProfileRequest()
+                {
+                    ID = request.PosterID,
+                    Comment = comment
+                };
 
                 return new CommentResponse()
                 {
@@ -152,6 +158,7 @@ namespace SpacePlace.Repositories
                     Likes = comment.Likes,
                     Dislikes = comment.Dislikes,
                     Replies = comment.Replies,
+                    ProfileRequest = profileRequest,
                     Success = true
                 };
             }

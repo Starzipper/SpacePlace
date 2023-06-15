@@ -3,6 +3,7 @@
     public class ProfileRequest
     {
         public Guid ID { get; set; }
+        public Comment Comment { get; set; }
         public string UserName { get; set; }
         private string Password { get; set; }
         public List<Comment> CommentHistory { get; set; }
