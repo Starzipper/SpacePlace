@@ -9,5 +9,6 @@ namespace SpacePlace.Repositories
         public ProfileResponse ViewProfile(ProfileRequest request);
         public ProfileResponse UpdateProfile(ProfileRequest request);
         public ProfileResponse DeleteProfile(ProfileRequest request);
+        public ProfileResponse Login(ProfileRequest request);
     }
 }

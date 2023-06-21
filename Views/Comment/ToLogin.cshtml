@@ -1,0 +1,19 @@
+﻿@page
+@model ProfileResponse
+<title>@ViewData["Title"]</title>
+
+<body>
+<form method="post" asp-action="Login">
+    <div class="form-group">
+        <label for="UserName">Username: </label>
+        <input type="text" class="form-control" id="UserName" name="UserName" asp-for="UserName" required />
+    </div>
+    <div class="form-group">
+        <label for="Password">Password: </label>
+        <input type="text" class="form-control" id="Password" name="Password" asp-for="PasswordAttempt" required />
+    </div>
+    <button type="submit" class="btn">Submit</button>
+</form>
+<br/>
+<a asp-page="/Index">Back</a>
+</body>

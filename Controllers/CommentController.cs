@@ -30,6 +30,12 @@ namespace SpacePlace.Controllers
             return View(response);
         }
 
+        public IActionResult ToLogin()
+        {
+            var request = new ProfileRequest();
+            return View(request);
+        }
+
         [HttpGet]
         public IActionResult ViewComment([FromRoute] Guid id)
         {
@@ -134,6 +140,26 @@ namespace SpacePlace.Controllers
             {
                 return Redirect("/Comment/Error");
             }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Login([FromForm]string username, [FromForm]string password)
+        {
+            var request = new ProfileRequest()
+            {
+                UserName = username,
+                PasswordAttempt = password
+            };
+            var response = _profRepository.Login(request);
+
+            if (!response.Success)
+            {
+                return RedirectToAction("Error");
+            }
+            Models.User.LoggedIn = true;
+            Models.User.UserID = response.ID;
+
             return RedirectToAction("Index");
         }
     }

@@ -4,7 +4,29 @@ namespace SpacePlace.Repositories
 {
     public class ProfileRepository : IProfileRepository
     {
-        public List<Profile> Profiles { get; set; }
+        public List<Profile> Profiles { get; set; } = new List<Profile>()
+        {
+            new Profile()
+            {
+                UserName = "supermastergameplayer23"
+            },
+            new Profile()
+            {
+                UserName = "imAgoofyGooberYEAH"
+            },
+            new Profile()
+            {
+                UserName = "Sleve McDichael"
+            },
+            new Profile()
+            {
+                UserName = "Beffica Winklesnoot"
+            },
+            new Profile()
+            {
+                UserName = "needsspeed"
+            }
+        };
         public ProfileResponse CreateProfile(ProfileRequest request)
         {
             try
@@ -137,6 +159,47 @@ namespace SpacePlace.Repositories
                     ID = request.ID,
                     Success = false,
                     ErrorMessage = exception.Message
+                };
+            }
+        }
+        public ProfileResponse Login(ProfileRequest request)
+        {
+            try
+            {
+                var profiles = Profiles.Where(prof => prof.UserName == request.UserName).ToList();
+                if (profiles.Count == 0)
+                {
+                    return new ProfileResponse()
+                    {
+                        ErrorMessage = "Incorrect username or password.",
+                        Success = false
+                    };
+                }
+                foreach (Profile profile in profiles)
+                {
+                    var password = profile.GetPassword();
+                    if (password == request.PasswordAttempt)
+                    {
+                        return new ProfileResponse()
+                        {
+                            ID = profile.ID,
+                            UserName = profile.UserName,
+                            Success = true
+                        };
+                    }
+                }
+                return new ProfileResponse()
+                {
+                    ErrorMessage = "Incorrect username or password.",
+                    Success = false
+                };
+            }
+            catch (Exception exception)
+            {
+                return new ProfileResponse()
+                {
+                    ErrorMessage = exception.Message,
+                    Success = false
                 };
             }
         }

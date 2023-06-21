@@ -10,6 +10,11 @@
  * 
  * Fix the error page. Right now, whenever an error occurs, the program cannot accurately redirect the user to the error page.
  * 
- * 
- * 
+ * Let's break down the addition of profiles into steps:
+ * 1. I need to add an option to create a profile or log in.
+ * 2. I should create a 'User' class with a boolean to determine if the user is logged in or not and the ID of whatever profile they are using.
+ * 3. ???
+ * 4. Profit.
+ *
+ * Now I need to figure out how to make the login page actually load.
  */
